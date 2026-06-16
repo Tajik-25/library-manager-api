@@ -6,3 +6,6 @@ from routers.users import router as user_router
 app.include_router(auth_router)
 app.include_router(book_router)
 app.include_router(user_router)
+@app.get("/")
+def root():
+    return {"message": "library manager api is running"}

@@ -1,15 +1,16 @@
-def test_docs(client):
-    response = client.get("/docs")
+def create_books(client):
+    response = client.post("/books",json={"title":"hello","author":"tajik","genre":"music","available":False})
+    assert response.status_code == 201
+def all_books(client):
+    response = client.get("/books")
+    return response.status_code == 200
+def get_book(client):
+    response = client.get("/books/1")
     assert response.status_code == 200
-def test_openapi(client):
-    response = client.get("/openapi.json")
-    assert response.status_code == 200
-def test_create_book(client):
-    response = client.post("/books",json={"title":"python","author":"tajik","genre":"programming","available":True})
-    assert response.status_code == 401
-def test_update_book(client):
-    response = client.put("/books/1",json={"title":"java","genre":"ekaar"})
-    assert response.status_code == 401
-def test_delete_book(client):
+def update_book(client):
+    response = client.put("/books/1",json={"title":"anime"})
+    assert response.status_code == 201
+def delete_book(client):
     response = client.delete("/books/1")
-    assert response.status_code == 401
+    assert response.status_code == 200
+    

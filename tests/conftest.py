@@ -1,9 +1,9 @@
-import pytest
-from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from fastapi.testclient import TestClient
 from main import app
-from database import Base,get_db
+import pytest
+from database import get_db,Base
 data_base_url = "sqlite:///./test.db"
 engine = create_engine(data_base_url)
 TestingSessionLocal = sessionmaker(autoflush=False,autocommit=False,bind=engine)
@@ -20,4 +20,3 @@ def client():
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
-      
